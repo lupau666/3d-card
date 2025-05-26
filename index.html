@@ -1,114 +1,107 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3D Profile Card</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      overflow: hidden;
-      font-family: "Segoe UI", sans-serif;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>3D Profile Card</title>
+<style>
+  html, body {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    background: transparent;
+    overflow: visible;
+    font-family: "Segoe UI", sans-serif;
+  }
 
-    .card-wrapper {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      perspective: 1000px;
-    }
+  .card-wrapper {
+    width: 420px;  /* 卡片寬度＋留陰影空間 */
+    height: 270px; /* 卡片高度＋留陰影空間 */
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .card {
-      width: 400px;
-      height: 250px;
-      background: linear-gradient(145deg, #0015ff, #0044ff);
-      border-radius: 20px;
-      transform-style: preserve-3d;
-      transition: transform 0.2s ease;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-      position: relative;
-    }
+  .card {
+    width: 400px;   /* 卡片真實寬度 */
+    height: 250px;  /* 卡片真實高度 */
+    background: linear-gradient(145deg, #0015ff, #0044ff);
+    border-radius: 20px;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+  }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent);
-      transform: translateX(var(--mx, 0px)) translateY(var(--my, 0px));
-      transition: transform 0.1s;
-      pointer-events: none;
-      z-index: 2;
-      border-radius: 20px;
-    }
+  .card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent);
+    transform: translateX(var(--mx, 0px)) translateY(var(--my, 0px));
+    transition: transform 0.1s;
+    pointer-events: none;
+    z-index: 2;
+    border-radius: 20px;
+  }
 
-    .card .border {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 10px solid white;
-      border-radius: 20px;
-      z-index: 3;
-      pointer-events: none;
-    }
+  .card .border {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 10px solid white;
+    border-radius: 20px;
+    z-index: 3;
+    pointer-events: none;
+  }
 
-    .card-content {
-      display: flex;
-      height: 100%;
-      z-index: 1;
-      position: relative;
-      padding: 20px;
-      color: white;
-    }
+  .card-content {
+    display: flex;
+    height: 100%;
+    z-index: 1;
+    position: relative;
+    padding: 20px;
+    color: white;
+  }
 
-    .left-image {
-      width: 40%;
-      aspect-ratio: 3 / 4; /* 固定 3:4 比例 */
-      background: #999;
-      border-radius: 12px;
-      margin-right: 20px;
-      background-size: cover;       /* 圖片填滿不變形 */
-      background-position: center;  /* 圖片置中 */
-      flex-shrink: 0;
-    }
+  .left-image {
+    width: 40%;
+    aspect-ratio: 3 / 4;
+    background: #999 url('https://i.imgur.com/your-image.jpg') center/cover no-repeat;
+    border-radius: 12px;
+    margin-right: 20px;
+    flex-shrink: 0;
+  }
 
-    .right-text {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+  .right-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-    .name {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+  .name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
 
-    .intro {
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-  </style>
+  .intro {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+</style>
 </head>
 <body>
   <div class="card-wrapper" id="wrapper">
     <div class="card" id="card">
       <div class="border"></div>
       <div class="card-content">
-        <!-- 這裡換成你的圖片 URL -->
-        <div class="left-image" style="background-image: url('https://i.imgur.com/your-image.jpg');"></div>
+        <div class="left-image"></div>
         <div class="right-text">
           <div class="name">山田太郎</div>
           <div class="intro">
@@ -119,46 +112,29 @@
       </div>
     </div>
   </div>
+<script>
+  const card = document.getElementById("card");
+  const wrapper = document.getElementById("wrapper");
 
-  <script>
-    const card = document.getElementById("card");
-    const wrapper = document.getElementById("wrapper");
+  wrapper.addEventListener("mousemove", (e) => {
+    const rect = wrapper.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const dx = x - centerX;
+    const dy = y - centerY;
+    const rotateX = (-dy / 20).toFixed(2);
+    const rotateY = (dx / 20).toFixed(2);
 
-    // 3D 動態效果
-    wrapper.addEventListener("mousemove", (e) => {
-      const rect = wrapper.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const dx = x - centerX;
-      const dy = y - centerY;
-      const rotateX = (-dy / 20).toFixed(2);
-      const rotateY = (dx / 20).toFixed(2);
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    card.style.setProperty("--mx", dx + "px");
+    card.style.setProperty("--my", dy + "px");
+  });
 
-      // 注意：transform 要先 scale 後 rotate，不然會被覆蓋掉
-      card.style.transform = `scale(${currentScale}) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      card.style.setProperty("--mx", dx + "px");
-      card.style.setProperty("--my", dy + "px");
-    });
-
-    wrapper.addEventListener("mouseleave", () => {
-      card.style.transform = `scale(${currentScale}) rotateX(0deg) rotateY(0deg)`;
-    });
-
-    // 縮放功能
-    let currentScale = 1;
-    function resizeCard() {
-      const baseWidth = 400;
-      const baseHeight = 250;
-      const scaleX = wrapper.clientWidth / baseWidth;
-      const scaleY = wrapper.clientHeight / baseHeight;
-      currentScale = Math.min(scaleX, scaleY);
-      card.style.transform = `scale(${currentScale}) rotateX(0deg) rotateY(0deg)`;
-    }
-
-    window.addEventListener("resize", resizeCard);
-    window.addEventListener("load", resizeCard);
-  </script>
+  wrapper.addEventListener("mouseleave", () => {
+    card.style.transform = "rotateX(0deg) rotateY(0deg)";
+  });
+</script>
 </body>
 </html>
