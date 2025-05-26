@@ -31,7 +31,7 @@
     border-radius: 12px;
     transform-style: preserve-3d;
     transition: transform 0.2s ease;
-    overflow: visible; /* 不剪裁 */
+    overflow: visible;
     display: flex;
     align-items: center;
     padding: 20px;
@@ -84,7 +84,7 @@
     top: 0; left: 0;
     width: 100%; height: 100%;
     border-radius: 12px;
-    overflow: hidden; /* 限制反光不超出 */
+    overflow: hidden;
     pointer-events: none;
     z-index: 5;
   }
@@ -134,13 +134,13 @@
 
     const rotateX = (-dy / 15).toFixed(2);
     const rotateY = (dx / 15).toFixed(2);
-    card.style.transform = rotateX(${rotateX}deg) rotateY(${rotateY}deg);
+    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
     const borderTranslateX = (dx / 10).toFixed(2);
     const borderTranslateY = (dy / 10).toFixed(2);
-    border.style.transform = translateX(${borderTranslateX}px) translateY(${borderTranslateY}px);
+    border.style.transform = `translateX(${borderTranslateX}px) translateY(${borderTranslateY}px)`;
 
-    shine.style.transform = translateX(${dx}px) translateY(${dy}px);
+    shine.style.transform = `translateX(${dx}px) translateY(${dy}px)`;
 
     card.style.setProperty("--mx", dx + "px");
     card.style.setProperty("--my", dy + "px");
