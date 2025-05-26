@@ -1,108 +1,122 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>3D Profile Card</title>
-<style>
-  html, body {
-    margin: 0; padding: 0;
-    width: 100%; height: 100%;
-    background: transparent;
-    overflow: visible;
-    font-family: "Segoe UI", sans-serif;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Profile Card</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: transparent;
+      overflow: hidden;
+      font-family: "Segoe UI", sans-serif;
+    }
 
-  .card-wrapper {
-    width: 400px;
-    height: 250px;
-    perspective: 1000px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    .card-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
+    }
 
-  .card {
-    width: 400px;
-    height: 250px;
-    background: linear-gradient(145deg, #0015ff, #0044ff);
-    border-radius: 20px;
-    transform-style: preserve-3d;
-    transition: transform 0.2s ease;
-    box-shadow: none; /* 去除原box-shadow */
-    filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.3)); /* 用filter陰影 */
-    overflow: hidden;
-    position: relative;
-  }
+    .card {
+      width: 80%;              /* 用百分比寬度 */
+      max-width: 400px;        /* 最大寬度 */
+      aspect-ratio: 16 / 10;   /* 長寬比 16:10 */
+      background: linear-gradient(145deg, #0015ff, #0044ff);
+      border-radius: 20px;
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease;
+      overflow: hidden;
+      position: relative;
+      /* box-shadow 已移除 */
+    }
 
-  .card::before {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent);
-    transform: translateX(var(--mx, 0px)) translateY(var(--my, 0px));
-    transition: transform 0.1s;
-    pointer-events: none;
-    z-index: 2;
-    border-radius: 20px;
-  }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.2), transparent);
+      transform: translateX(var(--mx, 0px)) translateY(var(--my, 0px));
+      transition: transform 0.1s;
+      pointer-events: none;
+      z-index: 2;
+      border-radius: 20px;
+    }
 
-  .card .border {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border: 10px solid white;
-    border-radius: 20px;
-    z-index: 3;
-    pointer-events: none;
-  }
+    .card .border {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 10px solid white;
+      border-radius: 20px;
+      z-index: 3;
+      pointer-events: none;
+    }
 
-  .card-content {
-    display: flex;
-    height: 100%;
-    z-index: 1;
-    position: relative;
-    padding: 20px;
-    color: white;
-  }
+    .card-content {
+      display: flex;
+      height: 100%;
+      z-index: 1;
+      position: relative;
+      padding: 20px;
+      color: white;
+    }
 
-  .left-image {
-    width: 40%;
-    aspect-ratio: 3 / 4;
-    background: #999 url('https://i.imgur.com/your-image.jpg') center/cover no-repeat;
-    border-radius: 12px;
-    margin-right: 20px;
-    flex-shrink: 0;
-  }
+    .left-image {
+      width: 40%;
+      aspect-ratio: 3 / 4;
+      border-radius: 12px;
+      margin-right: 20px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #999; /* 背景色 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-  .right-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+    .left-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* 保持比例裁切填滿 */
+      display: block;
+      border-radius: 12px;
+    }
 
-  .name {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
+    .right-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-  .intro {
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-</style>
+    .name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .intro {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+  </style>
 </head>
 <body>
   <div class="card-wrapper" id="wrapper">
     <div class="card" id="card">
       <div class="border"></div>
       <div class="card-content">
-        <div class="left-image"></div>
+        <div class="left-image">
+          <img src="https://i.imgur.com/your-image.jpg" alt="Profile" />
+        </div>
         <div class="right-text">
           <div class="name">山田太郎</div>
           <div class="intro">
@@ -113,29 +127,29 @@
       </div>
     </div>
   </div>
-<script>
-  const card = document.getElementById("card");
-  const wrapper = document.getElementById("wrapper");
+  <script>
+    const card = document.getElementById("card");
+    const wrapper = document.getElementById("wrapper");
 
-  wrapper.addEventListener("mousemove", (e) => {
-    const rect = wrapper.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const dx = x - centerX;
-    const dy = y - centerY;
-    const rotateX = (-dy / 20).toFixed(2);
-    const rotateY = (dx / 20).toFixed(2);
+    wrapper.addEventListener("mousemove", (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const dx = x - centerX;
+      const dy = y - centerY;
+      const rotateX = (-dy / 20).toFixed(2);
+      const rotateY = (dx / 20).toFixed(2);
 
-    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    card.style.setProperty("--mx", dx + "px");
-    card.style.setProperty("--my", dy + "px");
-  });
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      card.style.setProperty("--mx", dx + "px");
+      card.style.setProperty("--my", dy + "px");
+    });
 
-  wrapper.addEventListener("mouseleave", () => {
-    card.style.transform = "rotateX(0deg) rotateY(0deg)";
-  });
-</script>
+    wrapper.addEventListener("mouseleave", () => {
+      card.style.transform = "rotateX(0deg) rotateY(0deg)";
+    });
+  </script>
 </body>
 </html>
