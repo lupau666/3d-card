@@ -5,49 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>3D Profile Card</title>
 <style>
-  body {
+  /* 清除所有預設margin/padding */
+  * {
     margin: 0;
-    padding: 6px;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* html body 固定視窗大小，且無滾動 */
+  html, body {
+    width: 100vw;
     height: 100vh;
+    overflow: hidden; /* 直接禁止滾動 */
+    font-family: "Segoe UI", sans-serif;
     background: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: "Segoe UI", sans-serif;
   }
+
+  /* 最外層容器 */
   .card-wrapper {
-    perspective: 1000px;
+    position: relative;
     width: 412px;
     height: 262px;
-    overflow: hidden; /* 防止溢出滾動條 */
-    position: relative;
+    perspective: 1000px;
+    overflow: hidden; /* 防止內部溢出 */
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
   }
+
+  /* 卡片 */
   .card {
     position: relative;
-    width: calc(100% - 40px); /* 扣除左右padding 20px*2 */
-    height: calc(100% - 40px); /* 扣除上下padding 20px*2 */
-    padding: 20px;
+    width: 400px;
+    height: 250px;
     background: linear-gradient(145deg, #0015ff, #0044ff);
     border-radius: 12px;
     transform-style: preserve-3d;
     transition: transform 0.2s ease;
-    overflow: visible;
     display: flex;
     align-items: center;
-    box-sizing: border-box;
+    padding: 20px;
     color: white;
     z-index: 1;
+    overflow: visible;
   }
+
+  /* 白色邊框：絕對定位，大小剛好包住卡片 */
   .white-border {
     position: absolute;
-    top: 4px;
-    left: 4px;
-    width: calc(100% - 8px);
-    height: calc(100% - 8px);
+    top: -6px;
+    left: -6px;
+    width: 412px;
+    height: 262px;
     border: 4px solid white;
     border-radius: 16px;
     pointer-events: none;
@@ -56,6 +68,8 @@
     box-sizing: border-box;
     z-index: 10;
   }
+
+  /* 左側圖片 */
   .left-image {
     width: 40%;
     aspect-ratio: 3 / 4;
@@ -65,6 +79,8 @@
     flex-shrink: 0;
     z-index: 2;
   }
+
+  /* 右側文字區 */
   .right-text {
     flex: 1;
     display: flex;
@@ -72,25 +88,30 @@
     justify-content: center;
     z-index: 2;
   }
+
   .name {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 10px;
   }
+
   .intro {
     font-size: 0.9rem;
     line-height: 1.4;
   }
-  /* 反光容器 */
+
+  /* 反光層 */
   .shine-wrapper {
     position: absolute;
     top: 0; left: 0;
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     border-radius: 12px;
     overflow: hidden;
     pointer-events: none;
     z-index: 5;
   }
+
   .card-shine {
     position: absolute;
     top: -50%;
@@ -98,7 +119,6 @@
     width: 200%;
     height: 200%;
     background: radial-gradient(circle at center, rgba(255,255,255,0.15), rgba(0, 150, 255, 0.1) 40%, transparent 80%);
-    transform: translateX(var(--mx, 0px)) translateY(var(--my, 0px));
     transition: transform 0.1s;
   }
 </style>
