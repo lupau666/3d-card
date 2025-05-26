@@ -5,38 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>3D Profile Card</title>
 <style>
-  /* 清除所有預設margin/padding */
-  * {
-    margin: 0;
-    padding: 0;
+  /* 全局 box-sizing */
+  *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  /* html body 固定視窗大小，且無滾動 */
   html, body {
+    margin: 0;
+    padding: 0;
     width: 100vw;
     height: 100vh;
-    overflow: hidden; /* 直接禁止滾動 */
-    font-family: "Segoe UI", sans-serif;
+    overflow: hidden; /* 禁止頁面滾動 */
     background: transparent;
+    font-family: "Segoe UI", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  /* 最外層容器 */
   .card-wrapper {
-    position: relative;
     width: 412px;
     height: 262px;
     perspective: 1000px;
-    overflow: hidden; /* 防止內部溢出 */
+    overflow: visible; /* 允許白邊超出 */
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  /* 卡片 */
   .card {
     position: relative;
     width: 400px;
@@ -45,21 +41,20 @@
     border-radius: 12px;
     transform-style: preserve-3d;
     transition: transform 0.2s ease;
+    overflow: visible;
     display: flex;
     align-items: center;
     padding: 20px;
     color: white;
     z-index: 1;
-    overflow: visible;
   }
 
-  /* 白色邊框：絕對定位，大小剛好包住卡片 */
   .white-border {
     position: absolute;
     top: -6px;
     left: -6px;
-    width: 412px;
-    height: 262px;
+    width: calc(100% + 12px);
+    height: calc(100% + 12px);
     border: 4px solid white;
     border-radius: 16px;
     pointer-events: none;
@@ -69,7 +64,6 @@
     z-index: 10;
   }
 
-  /* 左側圖片 */
   .left-image {
     width: 40%;
     aspect-ratio: 3 / 4;
@@ -80,7 +74,6 @@
     z-index: 2;
   }
 
-  /* 右側文字區 */
   .right-text {
     flex: 1;
     display: flex;
@@ -100,7 +93,7 @@
     line-height: 1.4;
   }
 
-  /* 反光層 */
+  /* 反光容器 */
   .shine-wrapper {
     position: absolute;
     top: 0; left: 0;
@@ -119,6 +112,7 @@
     width: 200%;
     height: 200%;
     background: radial-gradient(circle at center, rgba(255,255,255,0.15), rgba(0, 150, 255, 0.1) 40%, transparent 80%);
+    transform: translateX(var(--mx, 0px)) translateY(var(--my, 0px));
     transition: transform 0.1s;
   }
 </style>
