@@ -5,9 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>3D Profile Card</title>
 <style>
+  /* 全局 box-sizing */
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
-    padding: 6px;
+    padding: 0; /* 改成0 */
     height: 100vh;
     background: transparent;
     display: flex;
@@ -22,6 +27,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 6px; /* 改成放這 */
+    overflow: hidden; /* 防止溢出滾動條 */
   }
   .card {
     position: relative;
@@ -35,7 +42,6 @@
     display: flex;
     align-items: center;
     padding: 20px;
-    box-sizing: border-box;
     color: white;
     z-index: 1;
   }
@@ -50,7 +56,6 @@
     pointer-events: none;
     transform-style: preserve-3d;
     transition: transform 0.2s ease;
-    box-sizing: border-box;
     z-index: 10;
   }
   .left-image {
