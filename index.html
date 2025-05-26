@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>3D Profile Card</title>
 <style>
-  /* 全局 box-sizing */
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -13,9 +12,8 @@
   html, body {
     margin: 0;
     padding: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden; /* 禁止頁面滾動 */
+    overflow: hidden;
+    height: 100%;
     background: transparent;
     font-family: "Segoe UI", sans-serif;
     display: flex;
@@ -24,10 +22,10 @@
   }
 
   .card-wrapper {
+    perspective: 1000px;
     width: 412px;
     height: 262px;
-    perspective: 1000px;
-    overflow: visible; /* 允許白邊超出 */
+    overflow: visible; /* 改成 visible，允許內部元素移動不裁切 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,8 +58,8 @@
     pointer-events: none;
     transform-style: preserve-3d;
     transition: transform 0.2s ease;
-    box-sizing: border-box;
     z-index: 10;
+    box-sizing: border-box;
   }
 
   .left-image {
@@ -93,12 +91,10 @@
     line-height: 1.4;
   }
 
-  /* 反光容器 */
   .shine-wrapper {
     position: absolute;
     top: 0; left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     border-radius: 12px;
     overflow: hidden;
     pointer-events: none;
@@ -141,6 +137,9 @@
   const shine = card.querySelector(".card-shine");
   const wrapper = document.querySelector(".card-wrapper");
 
+  // 限制函數，限制值在[min, max]內
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
   wrapper.addEventListener("mousemove", (e) => {
     const rect = wrapper.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -150,18 +149,23 @@
     const dx = x - centerX;
     const dy = y - centerY;
 
-    const rotateX = (-dy / 15).toFixed(2);
-    const rotateY = (dx / 15).toFixed(2);
+    // 限制旋轉角度，避免太誇張
+    const rotateX = clamp(-dy / 15, -10, 10).toFixed(2);
+    const rotateY = clamp(dx / 15, -10, 10).toFixed(2);
     card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
 
-    const borderTranslateX = (dx / 10).toFixed(2);
-    const borderTranslateY = (dy / 10).toFixed(2);
+    // 限制白邊平移，最大±6px(白邊寬度)
+    const borderTranslateX = clamp(dx / 10, -6, 6);
+    const borderTranslateY = clamp(dy / 10, -6, 6);
     border.style.transform = `translateX(${borderTranslateX}px) translateY(${borderTranslateY}px)`;
 
-    shine.style.transform = `translateX(${dx}px) translateY(${dy}px)`;
+    // 限制反光平移，最大±20px
+    const shineTranslateX = clamp(dx, -20, 20);
+    const shineTranslateY = clamp(dy, -20, 20);
+    shine.style.transform = `translateX(${shineTranslateX}px) translateY(${shineTranslateY}px)`;
 
-    card.style.setProperty("--mx", dx + "px");
-    card.style.setProperty("--my", dy + "px");
+    card.style.setProperty("--mx", shineTranslateX + "px");
+    card.style.setProperty("--my", shineTranslateY + "px");
   });
 
   wrapper.addEventListener("mouseleave", () => {
