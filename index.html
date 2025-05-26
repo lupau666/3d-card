@@ -14,8 +14,8 @@
   }
 
   .card-wrapper {
-    width: 420px;  /* 卡片寬度＋留陰影空間 */
-    height: 270px; /* 卡片高度＋留陰影空間 */
+    width: 400px;
+    height: 250px;
     perspective: 1000px;
     display: flex;
     justify-content: center;
@@ -23,13 +23,14 @@
   }
 
   .card {
-    width: 400px;   /* 卡片真實寬度 */
-    height: 250px;  /* 卡片真實高度 */
+    width: 400px;
+    height: 250px;
     background: linear-gradient(145deg, #0015ff, #0044ff);
     border-radius: 20px;
     transform-style: preserve-3d;
     transition: transform 0.2s ease;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: none; /* 去除原box-shadow */
+    filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.3)); /* 用filter陰影 */
     overflow: hidden;
     position: relative;
   }
