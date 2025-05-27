@@ -12,7 +12,7 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background: transparent;
+      background: #000000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -63,7 +63,7 @@
     .left-image {
       width: 40%;
       aspect-ratio: 3 / 4;
-      background: #999;
+      background: url('https://i.postimg.cc/rFtpR24p/43.jpg') center/cover no-repeat;
       border-radius: 12px;
       margin-left: 1.5em;
       margin-right: 1.5em;
@@ -107,8 +107,16 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle at center, rgba(143, 152, 255, 0.2), rgba(121, 135, 255, 0.045) 60%, transparent 100%);
+      background: linear-gradient(
+        -145deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.4) 55%,
+        transparent 70%
+      );
+      mix-blend-mode: multiply;
+      opacity: 0.3; /* 可調整強度 */
       transition: transform 0.1s;
+      pointer-events: none;
     }
   </style>
 </head>
