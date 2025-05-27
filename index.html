@@ -23,7 +23,7 @@
       width: 80vw;
       max-width: 940px;
       aspect-ratio: 4 / 2.5;
-      min-width: 300px;
+      min-width: 400px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -32,7 +32,7 @@
     .card {
       width: 100%;
       height: 100%;
-      background: linear-gradient(145deg, #0015ff, #0044ff);
+      background: linear-gradient(145deg, #220EE8, #2a13fa);
       border-radius: 12px;
       display: flex;
       padding: 1.5em;
@@ -42,6 +42,7 @@
       transform-style: preserve-3d;
       transition: transform 0.2s ease;
       font-size: clamp(12px, 2.2vw, 16px); /* 自動縮放字體 */
+      min-width: 400px;
     }
 
     .white-border {
@@ -64,6 +65,7 @@
       aspect-ratio: 3 / 4;
       background: #999;
       border-radius: 12px;
+      margin-left: 1.5em;
       margin-right: 1.5em;
       flex-shrink: 0;
       z-index: 2;
@@ -74,6 +76,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      padding: 1.5em 1.5em 1.5em 3em;
       z-index: 2;
     }
 
@@ -104,7 +107,7 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.2), rgba(0, 150, 255, 0.1) 40%, transparent 80%);
+      background: radial-gradient(circle at center, rgba(143, 152, 255, 0.2), rgba(121, 135, 255, 0.045) 60%, transparent 100%);
       transition: transform 0.1s;
     }
   </style>
